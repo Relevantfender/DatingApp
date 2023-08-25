@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SQLitePCL;
 
 namespace API.Controllers;
-
+[Authorize]
 public class UsersController : BaseAPIController
 {
   private readonly DataContext _context;
@@ -13,7 +14,7 @@ public class UsersController : BaseAPIController
   {
     _context = context;
   }
-
+  [AllowAnonymous]
   [HttpGet]
   public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
   {
@@ -21,7 +22,7 @@ public class UsersController : BaseAPIController
     return users;
   }
 
-  [HttpGet("{id}")] // /api/user/2
+  [HttpGet("{id}")]
   public async Task<ActionResult<AppUser>> GetUser(int id)
   {
     return await _context.Users.FindAsync(id);
