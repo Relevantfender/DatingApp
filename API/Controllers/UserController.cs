@@ -3,9 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using SQLitePCL;
 
 namespace API.Controllers;
-[ApiController]
-[Route("api/[controller]")] //api/user
-public class UsersController : ControllerBase
+
+public class UsersController : BaseAPIController
 {
   private readonly DataContext _context;
 
